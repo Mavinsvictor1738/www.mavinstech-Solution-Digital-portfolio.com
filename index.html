@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Victor Chitole | Mavinstech Solution - Digital Portfolio</title>
+  <meta name="description" content="Professional portfolio of Victor Chitole - Frontend Developer, Tech Trainer, and Founder of Mavinstech Solution">
+  <meta name="keywords" content="Victor Chitole, Mavinstech, Portfolio, Web Design, Kolibri Training, ICT Training">
+  <meta name="author" content="Victor Chitole">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#5D3A00",
+            secondary: "#E6D3B3",
+            accent: "#FFD700"
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+            display: ['Algerian', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Alpine JS -->
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .typing-cursor {
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .service-card {
+      transition: all 0.3s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800 font-sans">
+  <!-- Navigation -->
+  <header class="bg-primary text-white sticky top-0 z-50 shadow-md">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <!-- Logo + Brand -->
+        <div class="flex items-center space-x-4">
+          <img src="media/pc1.png" alt="Mavinstech Logo" class="h-12 w-12 rounded-full object-cover border-2 border-accent">
+          <span class="text-2xl font-bold text-accent">Mavinstech Solution</span>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex space-x-8">
+          <a href="#about" class="hover:text-accent transition duration-300">About</a>
+          <a href="#services" class="hover:text-accent transition duration-300">Services</a>
+          <a href="#projects" class="hover:text-accent transition duration-300">Projects</a>
+          <a href="#testimonials" class="hover:text-accent transition duration-300">Testimonials</a>
+          <a href="#contact" class="hover:text-accent transition duration-300">Contact</a>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden text-white focus:outline-none" @click="mobileMenuOpen = !mobileMenuOpen">
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div class="md:hidden bg-primary-dark" x-show="mobileMenuOpen" x-transition>
+      <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+        <a href="#about" class="text-white hover:text-accent" @click="mobileMenuOpen = false">About</a>
+        <a href="#services" class="text-white hover:text-accent" @click="mobileMenuOpen = false">Services</a>
+        <a href="#projects" class="text-white hover:text-accent" @click="mobileMenuOpen = false">Projects</a>
+        <a href="#testimonials" class="text-white hover:text-accent" @click="mobileMenuOpen = false">Testimonials</a>
+        <a href="#contact" class="text-white hover:text-accent" @click="mobileMenuOpen = false">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section with Video Background -->
+  <section class="relative h-screen flex items-center justify-center text-center text-white overflow-hidden">
+    <video autoplay muted loop playsinline class="hero-video">
+      <source src="media/tech-video-5.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="hero-overlay"></div>
+    
+    <div class="hero-content px-4 sm:px-6 lg:px-8">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+        Victor Chitole
+      </h1>
+      <h2 class="text-2xl md:text-3xl lg:text-4xl font-semibold mb-8">
+        Frontend Developer & Tech Educator
+      </h2>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8">
+        Bridging the digital divide through innovative web solutions and accessible technology education.
+      </p>
+      
+      <!-- Animated Services Typing -->
+      <div 
+        x-data="{
+          services: [
+            'Web Design & Development',
+            'Kolibri Platform Training',
+            'Smartboard & ICT Training',
+            'Graphics & Branding',
+            'Interactive Content Development',
+            'Educational Technology',
+            'Tech Consulting'
+          ],
+          currentText: '',
+          currentIndex: 0,
+          charIndex: 0,
+          typing: true,
+          typeSpeed: 100,
+          delay: 2000,
+          init() {
+            this.startTyping();
+          },
+          startTyping() {
+            setInterval(() => {
+              if (this.typing) {
+                this.currentText = this.services[this.currentIndex].slice(0, this.charIndex++);
+                if (this.charIndex > this.services[this.currentIndex].length) {
+                  this.typing = false;
+                  setTimeout(() => {
+                    this.typing = true;
+                    this.charIndex = 0;
+                    this.currentIndex = (this.currentIndex + 1) % this.services.length;
+                  }, this.delay);
+                }
+              }
+            }, this.typeSpeed);
+          }
+        }"
+        class="text-2xl md:text-3xl font-bold text-accent mt-8"
+      >
+        <span x-text="currentText"></span><span class="typing-cursor">|</span>
+      </div>
+      
+      <div class="mt-12 flex flex-col sm:flex-row justify-center gap-4">
+        <a href="#contact" class="bg-accent text-primary px-8 py-3 rounded-lg font-bold hover:bg-yellow-500 transition duration-300">
+          Get In Touch
+        </a>
+        <a href="#projects" class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-bold hover:bg-white hover:text-primary transition duration-300">
+          View My Work
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-16 px-6 bg-secondary">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row items-center gap-12">
+        <!-- Profile Image -->
+        <div class="md:w-1/3 flex justify-center">
+          <img src="media/2.jpg" alt="Victor Chitole" class="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover shadow-xl border-4 border-white">
+        </div>
+        
+        <!-- About Content -->
+        <div class="md:w-2/3">
+          <h2 class="text-3xl font-bold mb-6 text-primary">About Me</h2>
+          <h3 class="text-xl font-semibold mb-2">Victor Chitole</h3>
+          <h4 class="text-lg mb-6 text-gray-700">Founder & CEO, Mavinstech Solution</h4>
+          
+          <div class="prose max-w-none">
+            <p class="mb-4">
+              I am a passionate frontend developer and technology educator based in Kilifi, Kenya. With extensive experience in web development and digital education, I specialize in creating accessible, user-friendly digital experiences that bridge the technology gap in underserved communities.
+            </p>
+            
+            <p class="mb-4">
+              Through <strong>Mavinstech Solution</strong>, the digital agency I founded, we provide comprehensive technology solutions including web design, educational technology training, graphics design, and ICT consultancy. Our mission is to empower individuals and organizations with the digital skills needed to thrive in today's technology-driven world.
+            </p>
+            
+            <p class="mb-6">
+              My work with the <strong>Kolibri platform</strong> has been particularly impactful, bringing offline digital learning to schools and community centers across Kilifi County. I'm committed to making technology education accessible to all, regardless of internet connectivity or resources.
+            </p>
+          </div>
+          
+          <div class="flex flex-wrap gap-4 mt-8">
+            <a href="#services" class="bg-primary text-white px-6 py-3 rounded-lg hover:bg-opacity-90 transition duration-300">
+              Explore Services
+            </a>
+            <a href="#contact" class="bg-white text-primary border border-primary px-6 py-3 rounded-lg hover:bg-gray-100 transition duration-300">
+              Contact Me
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="py-16 px-6 bg-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4 text-primary">My Services</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Comprehensive digital solutions tailored to your needs
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Service 1: Web Design -->
+        <div class="service-card bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
+          <img src="media/tec (5).png" alt="Web Design" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <div class="flex items-center mb-4">
+              <div class="bg-primary bg-opacity-10 p-3 rounded-full">
+                <i class="fas fa-laptop-code text-primary text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold ml-4">Web Design & Development</h3>
+            </div>
+            <p class="text-gray-600 mb-4">
+              Custom, responsive websites that showcase your brand and engage your audience. From simple portfolios to complex web applications.
+            </p>
+            <ul class="text-sm text-gray-500 mb-4 space-y-1">
+              <li><i class="fas fa-check text-primary mr-2"></i> Responsive Design</li>
+              <li><i class="fas fa-check text-primary mr-2"></i> SEO Optimized</li>
+              <li><i class="fas fa-check text-primary mr-2"></i> CMS Integration</li>
+            </ul>
+            <a href="#contact" class="text-primary font-medium hover:text-accent transition duration-300 inline-flex items-center">
+              Get Started <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Service 2: Kolibri Training -->
+        <div class="service-card bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
+          <img src="media/cp1.jpg" alt="Kolibri Training" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <div class="flex items-center mb-4">
+              <div class="bg-primary bg-opacity-10 p-3 rounded-full">
+                <i class="fas fa-graduation-cap text-primary text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold ml-4">Kolibri Platform Training</h3>
+            </div>
+            <p class="text-gray-600 mb-4">
+              Offline digital learning solutions for schools and community centers. Bringing quality education to areas with limited internet access.
+            </p>
+            <ul class="text-sm text-gray-500 mb-4 space-y-1">
+              <li><i class="fas fa-check text-primary mr-2"></i> Platform Setup</li>
+              <li><i class="fas fa-check text-primary mr-2"></i> Teacher Training</li>
+              <li><i class="fas fa-check text-primary mr-2"></i> Curriculum Integration</li>
+            </ul>
+            <a href="#contact" class="text-primary font-medium hover:text-accent transition duration-300 inline-flex items-center">
+              Learn More <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Service 3: ICT Training -->
+        <div class="service-card bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
+          <img src="media/Cp.jpg" alt="ICT Training" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <div class="flex items-center mb-4">
+              <div class="bg-primary bg-opacity-10 p-3 rounded-full">
+                <i class="fas fa-chalkboard-teacher text-primary text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold ml-4">Smartboard & ICT Training</h3>
+            </div>
+            <p class="text-gray-600 mb-4">
+              Comprehensive technology training for educators and professionals. From basic digital literacy to advanced classroom technology integration.
+            </p>
+            <ul class="text-sm text-gray-500 mb-4 space-y-1">
+              <li><i class="fas fa-check text-primary mr-2"></i> Interactive Whiteboards</li>
+              <li><i class="fas fa-check text-primary mr-2"></i> Google Workspace</li>
+              <li><i class="fas fa-check text-primary mr-2"></i> Digital Lesson Creation</li>
+            </ul>
+            <a href="#contact" class="text-primary font-medium hover:text-accent transition duration-300 inline-flex items-center">
+              Schedule Training <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Service 4: Graphics Design -->
+        <div class="service-card bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
+          <img src="media/pic2.jpg" alt="Graphics Design" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <div class="flex items-center mb-4">
+              <div class="bg-primary bg-opacity-10 p-3 rounded-full">
+                <i class="fas fa-palette text-primary text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold ml-4">Graphics & Branding</h3>
+            </div>
+            <p class="text-gray-600 mb-4">
+              Professional design services including logos, posters, banners, and complete brand identity packages for businesses and organizations.
+            </p>
+            <ul class="text-sm text-gray-500 mb-4 space-y-1">
+              <li><i class="fas fa-check text-primary mr-2"></i> Logo Design</li>
+              <li><i class="fas fa-check text-primary mr-2"></i> Marketing Materials</li>
+              <li><i class="fas fa-check text-primary mr-2"></i> Brand Guidelines</li>
+            </ul>
+            <a href="#contact" class="text-primary font-medium hover:text-accent transition duration-300 inline-flex items-center">
+              Request Design <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Service 5: Interactive Content -->
+        <div class="service-card bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
+          <img src="media/p14.jpg" alt="Interactive Content" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <div class="flex items-center mb-4">
+              <div class="bg-primary bg-opacity-10 p-3 rounded-full">
+                <i class="fas fa-project-diagram text-primary text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold ml-4">Interactive Content Development</h3>
+            </div>
+            <p class="text-gray-600 mb-4">
+              Engaging digital learning materials including interactive lessons, quizzes, and multimedia content for enhanced educational experiences.
+            </p>
+            <ul class="text-sm text-gray-500 mb-4 space-y-1">
+              <li><i class="fas fa-check text-primary mr-2"></i> e-Learning Modules</li>
+              <li><i class="fas fa-check text-primary mr-2"></i> Interactive Presentations</li>
+              <li><i class="fas fa-check text-primary mr-2"></i> Multimedia Integration</li>
+            </ul>
+            <a href="#contact" class="text-primary font-medium hover:text-accent transition duration-300 inline-flex items-center">
+              Discuss Project <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Service 6: Tech Consulting -->
+        <div class="service-card bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
+          <img src="media/tec3.png" alt="Tech Consulting" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <div class="flex items-center mb-4">
+              <div class="bg-primary bg-opacity-10 p-3 rounded-full">
+                <i class="fas fa-lightbulb text-primary text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold ml-4">Tech Consulting</h3>
+            </div>
+            <p class="text-gray-600 mb-4">
+              Strategic guidance for schools, NGOs, and businesses looking to implement or improve their technology infrastructure and digital strategies.
+            </p>
+            <ul class="text-sm text-gray-500 mb-4 space-y-1">
+              <li><i class="fas fa-check text-primary mr-2"></i> Technology Audits</li>
+              <li><i class="fas fa-check text-primary mr-2"></i> Implementation Planning</li>
+              <li><i class="fas fa-check text-primary mr-2"></i> Digital Transformation</li>
+            </ul>
+            <a href="#contact" class="text-primary font-medium hover:text-accent transition duration-300 inline-flex items-center">
+              Book Consultation <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects/Portfolio Section -->
+  <section id="projects" class="py-16 px-6 bg-gray-50">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4 text-primary">Featured Projects</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          A showcase of my recent work and initiatives
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Project 1: Kolibri Implementation -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
+          <img src="media/p17.jpg" alt="Kolibri Implementation" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">Kolibri Platform Implementation</h3>
+            <p class="text-gray-600 mb-4">
+              Deployed Kolibri learning platform across multiple Compassion International centers in Kilifi County, providing offline digital education to hundreds of students.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-primary bg-opacity-10 text-primary text-xs px-3 py-1 rounded-full">EdTech</span>
+              <span class="bg-primary bg-opacity-10 text-primary text-xs px-3 py-1 rounded-full">Offline Learning</span>
+              <span class="bg-primary bg-opacity-10 text-primary text-xs px-3 py-1 rounded-full">Teacher Training</span>
+            </div>
+            <a href="#" class="text-primary font-medium hover:text-accent transition duration-300 inline-flex items-center">
+              View Case Study <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Project 2: Web Development -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
+          <img src="media/pc5.jpg" alt="Web Development" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">Business Website Portfolio</h3>
+            <p class="text-gray-600 mb-4">
+              Designed and developed responsive websites for local businesses, helping them establish an online presence and reach new customers.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-primary bg-opacity-10 text-primary text-xs px-3 py-1 rounded-full">Web Design</span>
+              <span class="bg-primary bg-opacity-10 text-primary text-xs px-3 py-1 rounded-full">Responsive</span>
+              <span class="bg-primary bg-opacity-10 text-primary text-xs px-3 py-1 rounded-full">SEO</span>
+            </div>
+            <a href="#" class="text-primary font-medium hover:text-accent transition duration-300 inline-flex items-center">
+              View Websites <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Project 3: ICT Training -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
+          <img src="media/Ds3.jpg" alt="ICT Training" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">Youth ICT Empowerment</h3>
+            <p class="text-gray-600 mb-4">
+              Conducted digital skills workshops for over 30 youth, covering web development, graphic design, and professional branding.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-primary bg-opacity-10 text-primary text-xs px-3 py-1 rounded-full">Training</span>
+              <span class="bg-primary bg-opacity-10 text-primary text-xs px-3 py-1 rounded-full">Youth</span>
+              <span class="bg-primary bg-opacity-10 text-primary text-xs px-3 py-1 rounded-full">Digital Skills</span>
+            </div>
+            <a href="#" class="text-primary font-medium hover:text-accent transition duration-300 inline-flex items-center">
+              See Photos <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-12">
+        <a href="#" class="inline-block bg-primary text-white px-8 py-3 rounded-lg font-bold hover:bg-opacity-90 transition duration-300">
+          View All Projects
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="py-16 px-6 bg-primary text-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Client Testimonials</h2>
+        <p class="text-xl text-accent max-w-2xl mx-auto">
+          What people say about my work
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Testimonial 1 -->
+        <div class="bg-white bg-opacity-10 p-6 rounded-lg border border-white border-opacity-20">
+          <div class="flex items-center mb-4">
+            <div class="text-yellow-400 text-xl mr-2">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <p class="italic mb-6">
+            "Victor's Kolibri training transformed how our center delivers digital content. His patience and expertise made the transition smooth for our teachers."
+          </p>
+          <div class="flex items-center">
+            <img src="media/testimonial1.jpg" alt="Emily Wanjala" class="w-12 h-12 rounded-full object-cover mr-4">
+            <div>
+              <h4 class="font-bold">Emily Wanjala</h4>
+              <p class="text-sm text-white text-opacity-80">Project Director, AIC Chanagande CDC</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Testimonial 2 -->
+        <div class="bg-white bg-opacity-10 p-6 rounded-lg border border-white border-opacity-20">
+          <div class="flex items-center mb-4">
+            <div class="text-yellow-400 text-xl mr-2">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <p class="italic mb-6">
+            "The website Victor created for our business has significantly increased our visibility and customer inquiries. Highly recommended!"
+          </p>
+          <div class="flex items-center">
+            <img src="media/testimonial2.jpg" alt="Richard Ngala" class="w-12 h-12 rounded-full object-cover mr-4">
+            <div>
+              <h4 class="font-bold">Richard Ngala</h4>
+              <p class="text-sm text-white text-opacity-80">Director, RGC Bamba CDC</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Testimonial 3 -->
+        <div class="bg-white bg-opacity-10 p-6 rounded-lg border border-white border-opacity-20">
+          <div class="flex items-center mb-4">
+            <div class="text-yellow-400 text-xl mr-2">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <p class="italic mb-6">
+            "Our teachers are now confidently using smartboards thanks to Victor's training. His approach makes technology accessible to everyone."
+          </p>
+          <div class="flex items-center">
+            <img src="media/testimonial3.jpg" alt="Nickson Bonke" class="w-12 h-12 rounded-full object-cover mr-4">
+            <div>
+              <h4 class="font-bold">Nickson Bonke</h4>
+              <p class="text-sm text-white text-opacity-80">Partnership Facilitator</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-16 px-6 bg-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4 text-primary">Get In Touch</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Ready to start your project or have questions? Reach out today.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-12">
+        <!-- Contact Form -->
+        <div class="bg-gray-50 p-8 rounded-lg shadow-sm border border-gray-100">
+          <h3 class="text-2xl font-semibold mb-6 text-primary">Send a Message</h3>
+          
+          <form action="https://formspree.io/f/mpwrvozk" method="POST" class="space-y-6">
+            <div>
+              <label for="name" class="block text-sm font-medium mb-1">Full Name</label>
+              <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent">
+            </div>
+            
+            <div>
+              <label for="email" class="block text-sm font-medium mb-1">Email Address</label>
+              <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent">
+            </div>
+            
+            <div>
+              <label for="phone" class="block text-sm font-medium mb-1">Phone Number</label>
+              <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent">
+            </div>
+            
+            <div>
+              <label for="service" class="block text-sm font-medium mb-1">Service Needed</label>
+              <select id="service" name="service" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent">
+                <option value="">Select a service</option>
+                <option value="Web Design">Web Design & Development</option>
+                <option value="Kolibri Training">Kolibri Platform Training</option>
+                <option value="ICT Training">Smartboard & ICT Training</option>
+                <option value="Graphics Design">Graphics & Branding</option>
+                <option value="Interactive Content">Interactive Content Development</option>
+                <option value="Consulting">Tech Consulting</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            
+            <div>
+              <label for="message" class="block text-sm font-medium mb-1">Message</label>
+              <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+            </div>
+            
+            <button type="submit" class="w-full bg-primary text-white py-3 px-6 rounded-lg font-bold hover:bg-opacity-90 transition duration-300">
+              Send Message
+            </button>
+          </form>
+        </div>
+        
+        <!-- Contact Info -->
+        <div>
+          <h3 class="text-2xl font-semibold mb-6 text-primary">Contact Information</h3>
+          
+          <div class="space-y-6">
+            <div class="flex items-start">
+              <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
+                <i class="fas fa-map-marker-alt text-primary"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-lg mb-1">Location</h4>
+                <p class="text-gray-600">Magogoni, Ganze – Kilifi County, Kenya</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
+                <i class="fas fa-phone-alt text-primary"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-lg mb-1">Phone</h4>
+                <p class="text-gray-600">+254 740 163 974</p>
+                <p class="text-gray-600">+254 108 740 098</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
+                <i class="fas fa-envelope text-primary"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-lg mb-1">Email</h4>
+                <p class="text-gray-600">mavinstechsolution@gmail.com</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
+                <i class="fas fa-clock text-primary"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-lg mb-1">Working Hours</h4>
+                <p class="text-gray-600">Monday - Friday: 8:00 AM - 5:00 PM</p>
+                <p class="text-gray-600">Saturday: 9:00 AM - 2:00 PM</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-8">
+  <h4 class="font-bold text-lg mb-4">Follow Me</h4>
+  <div class="flex space-x-4">
+    <a href="https://facebook.com/mavins Victor" target="_blank" rel="noopener" class="bg-primary bg-opacity-10 text-primary w-12 h-12 rounded-full flex items-center justify-center hover:bg-opacity-20 transition duration-300">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="https://twitter.com/mavinsVictor" target="_blank" rel="noopener" class="bg-primary bg-opacity-10 text-primary w-12 h-12 rounded-full flex items-center justify-center hover:bg-opacity-20 transition duration-300">
+      <i class="fab fa-twitter"></i>
+    </a>
+    <a href="https://linkedin.com/in/Victor Chitole" target="_blank" rel="noopener" class="bg-primary bg-opacity-10 text-primary w-12 h-12 rounded-full flex items-center justify-center hover:bg-opacity-20 transition duration-300">
+      <i class="fab fa-linkedin-in"></i>
+    </a>
+    <a href="https://instagram.com/mavinsVictor" target="_blank" rel="noopener" class="bg-primary bg-opacity-10 text-primary w-12 h-12 rounded-full flex items-center justify-center hover:bg-opacity-20 transition duration-300">
+      <i class="fab fa-instagram"></i>
+    </a>
+  </div>
+</div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WhatsApp Float Button -->
+  <a href="https://wa.me/+254740163974" target="_blank" rel="noopener noreferrer"
+     class="fixed bottom-4 right-4 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-opacity-90 transition duration-300">
+    <i class="fab fa-whatsapp"></i>
+  </a>
